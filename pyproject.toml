@@ -1,0 +1,39 @@
+[project]
+name = "hw-food-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "jupyter>=1.1.1",
+    "openfoodfacts>=2.5.0",
+    "python-telegram-bot>=21.10",
+]
+
+[tool.ruff]
+extend-exclude = ['*.ipynb']
+line-length = 100
+indent-width = 4
+
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "SIM", "PL", "FAST", "PTH", "C4", "UP", "ASYNC", "C90"]
+ignore = []
+
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+indent-style = "space"
+
+skip-magic-trailing-comma = false
+
+line-ending = "auto"
+
+docstring-code-format = false
+
+docstring-code-line-length = "dynamic"
