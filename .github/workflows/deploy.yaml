@@ -20,6 +20,9 @@ jobs:
           script: |
             set -e
 
+            docker stop hw-food || true
+            docker rm hw-food || true
+
             cd ~/hw-food-bot
             git pull origin main
 
@@ -27,7 +30,7 @@ jobs:
 
             docker build . -t hw-food
             docker run -d \
-              --name hw-food \
+              --name hw-food-bot \
               --restart unless-stopped \
               --env-file ~/hw-food-bot/.env \
               hw-food
