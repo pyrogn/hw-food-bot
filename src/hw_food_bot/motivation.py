@@ -1,7 +1,7 @@
 import random
 from pathlib import Path
 
-with Path("hw-food-bot/motivation.txt").open("r") as f:
+with Path("motivation.txt").open("r") as f:
     motivation_lines = [line.strip() for line in f.readlines() if line]
 
 
