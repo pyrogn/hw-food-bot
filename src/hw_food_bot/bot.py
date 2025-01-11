@@ -20,13 +20,11 @@ from telegram.ext import (
 
 from hw_food_bot.calories_math import ACTIVITIES_1M_CAL_BURN, UserManager, UserProfile
 from hw_food_bot.motivation import get_random_quote
+from hw_food_bot.setup_logging import setup_logging
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.DEBUG,
-)
+log_level = os.getenv("LOG_LEVEL", "INFO")
+setup_logging(log_level)
 
-logging.getLogger("httpx").setLevel(logging.WARNING)
 
 load_dotenv(find_dotenv())
 BOT_TOKEN = os.environ.get("BOT_TOKEN")
@@ -150,7 +148,7 @@ class ProfileSetup:
 
 
 def create_profile_handler() -> ConversationHandler:
-    """Create the profile setup conversation handler."""
+    """Хендлер для /setup_profile"""
     return ConversationHandler(
         entry_points=[CommandHandler("set_profile", ProfileSetup.start_profile_setup)],
         states={
@@ -167,6 +165,7 @@ def create_profile_handler() -> ConversationHandler:
 
 
 async def log_water(update: Update, context: CallbackContext):
+    """Залоггировать воду одной командой."""
     user_id = update.effective_user.id
     if user_id not in users:
         await update.message.reply_text(
@@ -185,6 +184,7 @@ async def log_water(update: Update, context: CallbackContext):
 
 
 async def log_food_start(update: Update, context: CallbackContext):
+    """Спросить, сколько еды съели"""
     logging.debug("start logging food")
     user_id = update.effective_user.id
     if user_id not in users:
@@ -198,6 +198,7 @@ async def log_food_start(update: Update, context: CallbackContext):
 
 
 async def log_food_grams(update: Update, context: CallbackContext):
+    """Залоггировать объем еды и найти калорийность."""
     user_id = update.effective_user.id
     food_name = context.user_data["food_name"]
     try:
@@ -212,6 +213,7 @@ async def log_food_grams(update: Update, context: CallbackContext):
 
 
 async def cancel(update: Update, context: CallbackContext):
+    """Завершить текущий conversion как fallback."""
     await update.message.reply_text("Отменено.")
     return ConversationHandler.END
 

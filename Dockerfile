@@ -16,4 +16,4 @@ ADD . /app
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen
-CMD ["uv", "run", "my_app"]
+CMD ["uv", "run", "src/hw_food_bot/bot.py"]

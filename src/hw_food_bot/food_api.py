@@ -6,9 +6,6 @@ from aiolimiter import AsyncLimiter
 from niquests import AsyncSession
 from pydantic.dataclasses import dataclass
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG
-)
 logger = logging.getLogger(__name__)
 
 
